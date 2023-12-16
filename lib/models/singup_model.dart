@@ -17,23 +17,31 @@ class SignupModel extends ChangeNotifier {
   String password = "";
   bool isObscure = true;
 
-  Future<void> createFirestoreUser({required BuildContext context required String uid}) async {
+  Future<void> createFirestoreUser(
+      {required BuildContext context, required String uid}) async {
     final Timestamp now = Timestamp.now();
-    final FirestoreUser firestoreUser = FirestoreUser(createdAt: now, email: email, uid: uid, updatedAt: now, userName: "Yuma");
+    final FirestoreUser firestoreUser = FirestoreUser(
+        createdAt: now,
+        email: email,
+        uid: uid,
+        updatedAt: now,
+        userName: "Yuma");
     final Map<String, dynamic> userData = firestoreUser.toJson();
     await FirebaseFirestore.instance.collection("users").doc(uid).set(userData);
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('ユーザーができました')));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('ユーザーができました')));
     notifyListeners();
   }
 
   Future<void> createUser({required BuildContext context}) async {
     try {
-      final result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      final result = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
       final User? user = result.user;
       final String uid = user!.uid;
       await createFirestoreUser(context: context, uid: uid);
-    } on FirebaseAuthException catch(e) {
+    } on FirebaseAuthException catch (e) {
       debugPrint(e.toString());
     }
   }

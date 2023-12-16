@@ -7,6 +7,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'main_model.dart';
 // options
 import 'firebase_options.dart';
+// constants
+import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,16 +47,16 @@ class MyHomePage extends ConsumerWidget {
         appBar: AppBar(
           title: Text(title),
         ),
-        body: const Center(
+        body: Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            InkWell(
-              child: Icon(Icons.person),
-            ),
-            InkWell(
-              child: Icon(Icons.person),
-            ),
+            ElevatedButton(
+                onPressed: () => routes.toSignupPage(context: context),
+                child: const Text("サインアップページ")),
+            ElevatedButton(
+                onPressed: () => routes.toLoginPage(context: context),
+                child: const Text("ログインページ")),
             Text('Nullです')
           ],
         )));

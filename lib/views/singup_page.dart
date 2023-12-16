@@ -39,7 +39,7 @@ class SignupPage extends ConsumerWidget {
             )),
           ),
           Center(
-            child: signupModel.currentuser == null
+            child: signupModel.currentUser == null
                 ? const Text("nullです")
                 : const Text("nullじゃないです"),
           )
